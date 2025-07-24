@@ -16,6 +16,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "AICAL",
   description: "Advanced Calculator",
+  icons: {
+    icon: "/icon-512x512.png",
+  },
+  manifest: "/manifest.json",
 }
 
 export default function RootLayout({
@@ -26,9 +30,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Head>
-        <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#0f172a" />
-        <link rel="icon" href="/icon-192x192.png" />
+        <link rel="icon" href="/icon-192x192.png" type="image/png" />
+        
+        {/* Optional: Other device icons */}
+        <link rel="apple-touch-icon" href="/icon-192x192.png" />
+        <link rel="icon" sizes="192x192" href="/icon-192x192.png" />
+        <link rel="icon" sizes="16x16 32x32 48x48" href="/icon-192x192.png" />
       </Head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
