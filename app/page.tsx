@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { useForm } from "react-hook-form"
 import { useEffect, useState } from "react"
-import { Copy, Check } from "lucide-react"
+import { Copy, Check, Trash2 } from "lucide-react"
 
 const banglaToEnglishDigit = (digit: string): string =>
   digit.replace(/[০-৯]/g, (d) => "০১২৩৪৫৬৭৮৯".indexOf(d).toString())
@@ -26,7 +26,7 @@ const extractAmounts = (text: string): number[] => {
 }
 
 export default function Home() {
-  const { register, watch } = useForm()
+  const { register, watch, setValue } = useForm()
   const [total, setTotal] = useState(0)
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
 
@@ -76,22 +76,37 @@ export default function Home() {
     <main className="max-w-2xl mx-auto mt-10 space-y-6 p-4">
       <Card>
         <CardContent className="p-4">
-          <form>
-            <div className="flex flex-col items-center">
-              <label
-                htmlFor="inputText"
-                className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-4"
-              >
-                Paste Your Text Here
-              </label>
+        <form>
+          <div className="flex flex-col gap-2">
+            <label
+              htmlFor="inputText"
+              className="text-lg font-medium text-gray-700 dark:text-gray-300"
+            >
+              Paste Your Text Here
+            </label>
+
+            <div className="relative">
               <Textarea
                 {...register("inputText")}
+                id="inputText"
                 placeholder="Paste Bangla or English text with amounts like ২৩০৪/- or 2,304/-"
-                rows={10}
+                rows={5}
+                className="resize-y overflow-auto pr-10"
               />
+
+              <Button
+                type="button"
+                size="icon"
+                variant="ghost"
+                onClick={() => setValue("inputText", "")}
+                className="absolute top-2 right-2"
+                title="Clear text"
+              >
+                <Trash2 className="w-4 h-4" />
+              </Button>
             </div>
-            
-          </form>
+          </div>
+        </form>
         </CardContent>
       </Card>
 
